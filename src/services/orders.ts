@@ -34,7 +34,8 @@ export async function fetchUserOrders(userId: string) {
       _id, total, status, paymentMethod, createdAt,
       "items": items[]{title, price, quantity, size, color, "image": product->images[0].asset->url}
     }`,
-    { uid: userId }
+    { uid: userId },
+    { useCdn: false }
   );
 }
 
@@ -45,6 +46,7 @@ export async function fetchOrderById(orderId: string) {
       "items": items[]{title, price, quantity, size, color, "image": product->images[0].asset->url},
       "user": user->{_id, email, name}
     }`,
-    { id: orderId }
+    { id: orderId },
+    { useCdn: false }
   );
 }

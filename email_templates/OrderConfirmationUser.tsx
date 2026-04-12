@@ -241,16 +241,6 @@ export function renderOrderConfirmationUser(props: OrderConfirmationUserProps): 
             </td>
           </tr>
 
-          <!-- CTA Button -->
-          <tr>
-            <td style="padding:36px 48px 0;text-align:center;">
-              <a href="${trackingUrl || "#"}"
-                 style="display:inline-block;padding:16px 48px;background:#1a1714;color:#c9a96e;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;border-radius:4px;">
-                Track Your Order
-              </a>
-            </td>
-          </tr>
-
           <!-- Help Section -->
           <tr>
             <td style="padding:36px 48px 48px;text-align:center;">
