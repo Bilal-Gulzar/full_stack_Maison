@@ -6,7 +6,6 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { submitContactForm } from "@/services/contact";
 import Recaptcha, { RecaptchaHandle } from "@/components/Recaptcha";
 import { usePageMeta } from "@/hooks/usePageMeta";
-import { api } from "@/services/api";
 
 const FORMAT_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -15,32 +14,14 @@ const Contact = () => {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
-  const [checkingEmail, setCheckingEmail] = useState(false);
   const recaptchaRef = useRef<RecaptchaHandle>(null);
   const formRef = useRef(form);
 
-  const checkEmail = async () => {
+  const checkEmail = () => {
     const email = form.email.trim().toLowerCase();
-    if (!email) {
-      setEmailError(null);
-      return;
-    }
-    if (!FORMAT_RE.test(email)) {
-      setEmailError("Invalid email format");
-      return;
-    }
-    setCheckingEmail(true);
-    try {
-      const result = await api<{ ok: boolean; reason?: string }>("/api/validate-email", {
-        method: "POST",
-        body: JSON.stringify({ email }),
-      });
-      setEmailError(result.ok ? null : result.reason || "Invalid email");
-    } catch {
-      setEmailError(null);
-    } finally {
-      setCheckingEmail(false);
-    }
+    if (!email) { setEmailError(null); return; }
+    if (!FORMAT_RE.test(email)) { setEmailError("Invalid email format"); return; }
+    setEmailError(null);
   };
 
   const submitWithToken = async (token: string) => {
@@ -100,10 +81,7 @@ const Contact = () => {
                     required
                     className={`${inputClasses} ${emailError ? "border-destructive" : ""}`}
                   />
-                  {checkingEmail && (
-                    <p className="text-xs text-muted-foreground mt-1 font-body">Verifying…</p>
-                  )}
-                  {emailError && !checkingEmail && (
+                  {emailError && (
                     <p className="text-xs text-destructive mt-1 font-body">{emailError}</p>
                   )}
                 </div>
