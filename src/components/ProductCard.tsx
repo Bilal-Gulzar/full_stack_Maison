@@ -22,9 +22,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
     toast.success(wishlisted ? `${product.name} removed from wishlist` : `${product.name} added to wishlist`);
   };
 
+  const outOfStock = product.stock !== undefined && product.stock <= 0;
+
   const handleQuickAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    if (outOfStock) { toast.error("Out of stock"); return; }
     addItem(product, product.sizes[0], product.colors[0]);
     toast.success(`${product.name} added to bag`);
   };

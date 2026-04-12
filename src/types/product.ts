@@ -23,4 +23,5 @@ export interface Product {
   type?: "stitched" | "unstitched";
   wearType?: "eastern" | "western";
   slug?: string;
+  stock?: number;
 }

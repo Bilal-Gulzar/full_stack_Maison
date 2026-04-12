@@ -114,7 +114,10 @@ const ProductDetail = () => {
 
   const galleryImages = [product.image, product.image, product.image, product.image];
 
+  const outOfStock = product.stock !== undefined && product.stock <= 0;
+
   const handleAddToCart = () => {
+    if (outOfStock) { toast.error("This item is out of stock"); return; }
     if (!selectedSize) { toast.error("Please select a size"); return; }
     if (!selectedColor) { toast.error("Please select a color"); return; }
     addItem(product, selectedSize, selectedColor, quantity);
@@ -304,9 +307,10 @@ const ProductDetail = () => {
                 </div>
                 <button
                   onClick={handleAddToCart}
-                  className="flex-1 bg-primary text-primary-foreground py-3 text-xs font-body tracking-[0.2em] uppercase hover:bg-accent/90 transition-colors duration-300"
+                  disabled={outOfStock}
+                  className={`flex-1 py-3 text-xs font-body tracking-[0.2em] uppercase transition-colors duration-300 ${outOfStock ? "bg-muted text-muted-foreground cursor-not-allowed" : "bg-primary text-primary-foreground hover:bg-accent/90"}`}
                 >
-                  Add to Bag
+                  {outOfStock ? "Out of Stock" : "Add to Bag"}
                 </button>
               </div>
             </div>

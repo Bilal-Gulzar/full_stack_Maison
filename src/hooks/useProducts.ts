@@ -76,6 +76,7 @@ function adapt(p: SanityProductRow): Product {
     type: p.type,
     wearType: p.wearType,
     slug: p.slug,
+    stock: p.stock,
   };
 }
 
