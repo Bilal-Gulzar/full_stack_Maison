@@ -189,6 +189,7 @@ const Shop = () => {
   const handleQuickAdd = (e: React.MouseEvent, product: typeof products[0]) => {
     e.preventDefault();
     e.stopPropagation();
+    if (product.stock !== undefined && product.stock <= 0) { toast.error("Out of stock"); return; }
     addItem(product, product.sizes[0], product.colors[0]);
     toast.success(`${product.name} added to bag`);
   };
@@ -621,9 +622,11 @@ const Shop = () => {
                       <Link to={`/product/${product.id}`} className={`group ${gridLayout === 1 ? "flex gap-6 items-start" : "block"}`}>
                         <div className={`relative bg-secondary overflow-hidden ${gridLayout === 1 ? "w-48 md:w-64 aspect-[4/5] flex-shrink-0" : "aspect-[4/5] mb-4"}`}>
                           <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
-                          {product.isNew && (
+                          {product.stock !== undefined && product.stock <= 0 ? (
+                            <span className="absolute top-3 left-3 bg-muted text-muted-foreground text-[10px] font-body tracking-[0.15em] uppercase px-3 py-1">Out of Stock</span>
+                          ) : product.isNew ? (
                             <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] font-body tracking-[0.15em] uppercase px-3 py-1">New</span>
-                          )}
+                          ) : null}
                           {product.fabric && (
                             <span className="absolute top-3 right-12 bg-background/80 backdrop-blur-sm text-[9px] font-body tracking-wider text-foreground px-2 py-0.5">
                               {product.fabric}
@@ -637,7 +640,7 @@ const Shop = () => {
                           >
                             <Heart size={14} fill={isInWishlist(product.id) ? "currentColor" : "none"} />
                           </button>
-                          {gridLayout !== 1 && (
+                          {gridLayout !== 1 && !(product.stock !== undefined && product.stock <= 0) && (
                             <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                               <button onClick={(e) => handleQuickAdd(e, product)} className="w-full bg-background/90 backdrop-blur-sm text-foreground text-xs font-body tracking-[0.15em] uppercase py-3 hover:bg-primary hover:text-primary-foreground transition-colors duration-300">
                                 Quick Add
@@ -652,12 +655,16 @@ const Shop = () => {
                           {gridLayout === 1 && (
                             <>
                               <p className="font-body text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2">{product.description}</p>
-                              <button
-                                onClick={(e) => handleQuickAdd(e, product)}
-                                className="bg-primary text-primary-foreground text-xs font-body tracking-[0.15em] uppercase px-6 py-2.5 hover:opacity-90 transition-opacity"
-                              >
-                                Quick Add
-                              </button>
+                              {product.stock !== undefined && product.stock <= 0 ? (
+                                <span className="inline-block bg-muted text-muted-foreground text-xs font-body tracking-[0.15em] uppercase px-6 py-2.5">Out of Stock</span>
+                              ) : (
+                                <button
+                                  onClick={(e) => handleQuickAdd(e, product)}
+                                  className="bg-primary text-primary-foreground text-xs font-body tracking-[0.15em] uppercase px-6 py-2.5 hover:opacity-90 transition-opacity"
+                                >
+                                  Quick Add
+                                </button>
+                              )}
                             </>
                           )}
                         </div>
