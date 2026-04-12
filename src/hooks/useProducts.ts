@@ -88,7 +88,7 @@ export function useProducts() {
   useEffect(() => {
     let mounted = true;
     sanityClient
-      .fetch<SanityProductRow[]>(`*[_type=="product"] | order(_createdAt desc) ${PROJECTION}`)
+      .fetch<SanityProductRow[]>(`*[_type=="product"] | order(_createdAt desc) ${PROJECTION}`, {}, { useCdn: false })
       .then((rows) => mounted && setProducts((rows || []).map(adapt)))
       .catch((e) => mounted && setError(e as Error))
       .finally(() => mounted && setLoading(false));
