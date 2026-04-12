@@ -5,8 +5,7 @@
   ],
   "functions": {
     "api/**/*.ts": {
-      "runtime": "@vercel/node@3.2.0",
-      "includeFiles": "api/_lib/**,email_templates/**"
+      "includeFiles": "api/package.json,email_templates/package.json"
     }
   }
 }
