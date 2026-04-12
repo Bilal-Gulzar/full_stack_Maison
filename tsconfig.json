@@ -13,7 +13,7 @@
     "skipLibCheck": true,
     "strictNullChecks": false
   },
-  "include": ["api", "email_templates"],
+  "files": [],
   "references": [
     {
       "path": "./tsconfig.app.json"
