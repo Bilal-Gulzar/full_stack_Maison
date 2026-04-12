@@ -41,11 +41,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
           className="w-full h-full object-cover"
           loading="lazy"
         />
-        {product.isNew && (
+        {outOfStock ? (
+          <span className="absolute top-3 left-3 bg-muted text-muted-foreground text-[10px] font-body tracking-[0.15em] uppercase px-3 py-1">
+            Out of Stock
+          </span>
+        ) : product.isNew ? (
           <span className="absolute top-3 left-3 bg-primary text-primary-foreground text-[10px] font-body tracking-[0.15em] uppercase px-3 py-1">
             New
           </span>
-        )}
+        ) : null}
         <button
           onClick={handleWishlist}
           className={`absolute top-3 right-3 w-8 h-8 bg-background/80 backdrop-blur-sm flex items-center justify-center transition-all duration-300 ${
