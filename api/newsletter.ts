@@ -22,11 +22,12 @@ export default wrap(async (req, res) => {
 
     res.statusCode = 200;
     res.setHeader("Content-Type", "text/html");
-    return res.end(`<!doctype html><html><body style="font-family:Georgia,serif;text-align:center;padding:80px 20px;background:#f5f3ef;">
+    res.end(`<!doctype html><html><body style="font-family:Georgia,serif;text-align:center;padding:80px 20px;background:#f5f3ef;">
       <h1 style="font-weight:300;letter-spacing:0.15em;font-size:32px;">MAISON</h1>
       <p>You have been unsubscribed.</p>
       <p style="color:#888;font-size:12px;">${email}</p>
     </body></html>`);
+    return;
   }
 
   if (req.method !== "POST") { json(res, 405, { error: "Method not allowed" }); return; }
