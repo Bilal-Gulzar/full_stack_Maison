@@ -58,14 +58,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
         >
           <Heart size={14} fill={wishlisted ? "currentColor" : "none"} />
         </button>
-        <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <button
-            onClick={handleQuickAdd}
-            className="w-full bg-background/90 backdrop-blur-sm text-foreground text-xs font-body tracking-[0.15em] uppercase py-3 hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-          >
-            Quick Add
-          </button>
-        </div>
+        {!outOfStock && (
+          <div className="absolute bottom-0 left-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <button
+              onClick={handleQuickAdd}
+              className="w-full bg-background/90 backdrop-blur-sm text-foreground text-xs font-body tracking-[0.15em] uppercase py-3 hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
+            >
+              Quick Add
+            </button>
+          </div>
+        )}
       </div>
       <p className="text-[10px] font-body tracking-[0.2em] uppercase text-muted-foreground mb-1">
         {product.category}
