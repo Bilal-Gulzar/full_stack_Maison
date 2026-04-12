@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Background -->
+  <rect width="64" height="64" rx="8" fill="#1A1714"/>
+  <!-- Outer frame -->
+  <rect x="8" y="8" width="48" height="48" rx="2" stroke="#F5F0EB" stroke-width="1.5" fill="none"/>
+  <!-- M letterform -->
+  <path d="M18 46V18L32 35L46 18V46" stroke="#F5F0EB" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Serif accents -->
+  <line x1="15" y1="46" x2="21" y2="46" stroke="#F5F0EB" stroke-width="1.5"/>
+  <line x1="43" y1="46" x2="49" y2="46" stroke="#F5F0EB" stroke-width="1.5"/>
+</svg>
