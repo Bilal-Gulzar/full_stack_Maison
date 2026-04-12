@@ -115,7 +115,7 @@ const Navbar = () => {
             {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
 
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center ml-3 md:ml-0">
             <img
               src="/maison-logo-dark.svg"
               alt="MAISON"
