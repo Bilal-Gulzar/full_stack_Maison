@@ -154,11 +154,9 @@ export default defineType({
     defineField({
       name: "color",
       title: "Color",
-      type: "string",
-      description: "Each product has one color. Create separate products for other color options.",
-      options: {
-        list: ["White", "Black", "Charcoal", "Navy", "Ivory", "Tan", "Olive", "Cream", "Maroon", "Green", "Gold", "Brown", "Beige", "Yellow", "Red", "Blue", "Slate", "Camel", "Light Blue", "Pale Pink", "Dark Brown", "Off White", "Grey"],
-      },
+      type: "reference",
+      to: [{ type: "color" }],
+      description: "Pick a color, or click 'Create new color' to add one — it will appear in this dropdown forever.",
       validation: (r) => r.required(),
     }),
 

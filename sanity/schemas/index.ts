@@ -2,6 +2,7 @@ import user from "./user";
 import article from "./article";
 import product from "./product";
 import category from "./category";
+import color from "./color";
 import homepage from "./homepage";
 import wishlistItem from "./wishlist";
 import order from "./order";
@@ -17,6 +18,7 @@ export const schemaTypes = [
   shippingSettings,
   siteSettings,
   category,
+  color,
   product,
   article,
   user,

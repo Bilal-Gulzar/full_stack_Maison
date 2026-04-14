@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useProducts } from "@/hooks/useProducts";
 import { useCart } from "@/contexts/CartContext";
@@ -29,6 +29,11 @@ const ProductDetail = () => {
   const wishlisted = product ? isInWishlist(product.id) : false;
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
+
+  useEffect(() => {
+    if (product?.colors?.length === 1) setSelectedColor(product.colors[0]);
+    if (product?.sizes?.length === 1) setSelectedSize(product.sizes[0]);
+  }, [product?.id]);
   const [quantity, setQuantity] = useState(1);
   const [sizeGuideOpen, setSizeGuideOpen] = useState(false);
   const [activeImageIndex, setActiveImageIndex] = useState(0);

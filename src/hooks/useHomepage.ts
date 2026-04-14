@@ -91,7 +91,8 @@ const PRODUCT_PROJECTION = `{
   isNew,
   "description": coalesce(description, ""),
   "sizes": coalesce(sizes, []),
-  "colors": coalesce(colors, []),
+  "colors": select(defined(color) => [color->name], []),
+  stock,
   wearType,
   type,
   "slug": slug.current

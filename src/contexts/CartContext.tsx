@@ -48,7 +48,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             : i
         );
       }
-      return [...prev, { product, quantity, size, color }];
+      return [{ product, quantity, size, color }, ...prev];
     });
   };
 

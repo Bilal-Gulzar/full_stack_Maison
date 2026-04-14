@@ -25,7 +25,7 @@ const PROJECTION = `{
   season,
   fit,
   sizes,
-  color,
+  "color": color->name,
   stock,
   featured,
   isNew

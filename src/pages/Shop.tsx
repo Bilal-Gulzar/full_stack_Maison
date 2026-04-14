@@ -26,8 +26,9 @@ const priceRanges = [
   { label: "Rs.5,000 – 10,000", min: 5000, max: 10000 },
   { label: "Rs.10,000+", min: 10000, max: Infinity },
 ];
-const allSizes = ["S", "M", "L", "XL", "XXL"];
-const allColors = ["White", "Black", "Charcoal", "Navy", "Ivory", "Tan", "Olive", "Cream", "Maroon", "Green", "Gold", "Brown", "Beige"];
+const SIZE_ORDER = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
+const FALLBACK_SIZES = ["S", "M", "L", "XL", "XXL"];
+const FALLBACK_COLORS = ["White", "Black", "Charcoal", "Navy", "Ivory", "Tan", "Olive", "Cream", "Maroon", "Green", "Gold", "Brown", "Beige"];
 
 type GridLayout = 1 | 2 | 3;
 
@@ -105,6 +106,38 @@ const Shop = () => {
 
   const loading = productsLoading;
 
+  // Scope products by category/wearType/stitchType so size & color filters only show relevant options
+  const scopedProducts = useMemo(() => {
+    let r = products;
+    if (wearType !== "all") r = r.filter((p) => p.wearType === wearType);
+    if (wearType === "eastern" && stitchType !== "all") r = r.filter((p) => p.type === stitchType);
+    if (activeCategory !== "All") r = r.filter((p) => p.category === activeCategory);
+    return r;
+  }, [products, wearType, stitchType, activeCategory]);
+
+  const availableSizes = useMemo(() => {
+    const set = new Set(scopedProducts.flatMap((p) => p.sizes || []));
+    if (set.size === 0) return FALLBACK_SIZES;
+    const isNumeric = (s: string) => /^\d+(\.\d+)?$/.test(s);
+    const letters = SIZE_ORDER.filter((s) => set.has(s));
+    const nums = [...set].filter(isNumeric).sort((a, b) => parseFloat(a) - parseFloat(b));
+    const others = [...set].filter((s) => !SIZE_ORDER.includes(s) && !isNumeric(s)).sort();
+    return [...letters, ...nums, ...others];
+  }, [scopedProducts]);
+
+  const availableColors = useMemo(() => {
+    const toTitleCase = (s: string) =>
+      s.trim().toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+    const map = new Map<string, string>();
+    for (const c of scopedProducts.flatMap((p) => p.colors || [])) {
+      if (!c) continue;
+      const normalized = toTitleCase(c);
+      if (!map.has(normalized.toLowerCase())) map.set(normalized.toLowerCase(), normalized);
+    }
+    const list = [...map.values()].sort();
+    return list.length === 0 ? FALLBACK_COLORS : list;
+  }, [scopedProducts]);
+
   const toggleArrayItem = (arr: string[], item: string) =>
     arr.includes(item) ? arr.filter((i) => i !== item) : [...arr, item];
 
@@ -146,7 +179,10 @@ const Shop = () => {
     result = result.filter((p) => p.price >= range.min && p.price < range.max);
 
     if (selectedSizes.length > 0) result = result.filter((p) => p.sizes.some((s) => selectedSizes.includes(s)));
-    if (selectedColors.length > 0) result = result.filter((p) => p.colors.some((c) => selectedColors.includes(c)));
+    if (selectedColors.length > 0) {
+      const selectedLower = selectedColors.map((c) => c.toLowerCase().trim());
+      result = result.filter((p) => p.colors.some((c) => selectedLower.includes(c.toLowerCase().trim())));
+    }
     if (selectedOccasions.length > 0) result = result.filter((p) => p.occasion && selectedOccasions.includes(p.occasion));
     if (selectedSeasons.length > 0) result = result.filter((p) => p.season && selectedSeasons.includes(p.season));
     if (selectedFits.length > 0) result = result.filter((p) => p.fit && selectedFits.includes(p.fit));
@@ -409,11 +445,11 @@ const Shop = () => {
                   <div>
                     <p className="text-[10px] font-body tracking-[0.2em] uppercase text-muted-foreground mb-3">Size</p>
                     <div className="flex flex-wrap gap-1.5">
-                      {allSizes.map((size) => (
+                      {availableSizes.map((size) => (
                         <button
                           key={size}
                           onClick={() => setSelectedSizes(toggleArrayItem(selectedSizes, size))}
-                          className={`w-9 h-9 border text-[11px] font-body transition-colors flex items-center justify-center ${
+                          className={`min-w-[2.25rem] h-9 px-2 border text-[11px] font-body transition-colors flex items-center justify-center whitespace-nowrap ${
                             selectedSizes.includes(size)
                               ? "border-primary text-primary bg-primary/10"
                               : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
@@ -429,7 +465,7 @@ const Shop = () => {
                   <div>
                     <p className="text-[10px] font-body tracking-[0.2em] uppercase text-muted-foreground mb-3">Color</p>
                     <div className="flex flex-wrap gap-2">
-                      {allColors.map((color) => (
+                      {availableColors.map((color) => (
                         <button
                           key={color}
                           onClick={() => setSelectedColors(toggleArrayItem(selectedColors, color))}
