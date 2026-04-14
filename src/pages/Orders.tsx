@@ -62,6 +62,7 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
 
   const { user } = useAuth();
+
   useEffect(() => {
     if (!user) return;
     setLoading(true);

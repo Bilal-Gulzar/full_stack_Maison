@@ -17,7 +17,7 @@ const PROJECTION = `{
   "images": images[].asset->url,
   description,
   "categoryLabel": coalesce(category->title, ""),
-  subcategory,
+  "subcategory": category->subcategory,
   wearType,
   type,
   fabric,
@@ -25,7 +25,7 @@ const PROJECTION = `{
   season,
   fit,
   sizes,
-  colors,
+  color,
   stock,
   featured,
   isNew
@@ -49,7 +49,7 @@ interface SanityProductRow {
   season?: string;
   fit?: string;
   sizes?: string[];
-  colors?: string[];
+  color?: string;
   stock?: number;
   featured?: boolean;
   isNew?: boolean;
@@ -68,7 +68,7 @@ function adapt(p: SanityProductRow): Product {
     isNew: !!p.isNew,
     description: p.description || "",
     sizes: p.sizes || [],
-    colors: p.colors || [],
+    colors: p.color ? [p.color] : [],
     fabric: p.fabric,
     occasion: p.occasion,
     season: p.season,

@@ -232,7 +232,7 @@ const ProductDetail = () => {
               <p className="font-body text-sm text-muted-foreground leading-relaxed mb-8">{product.description}</p>
 
               {/* Product details tags */}
-              {(product.fabric || product.occasion || product.fit) && (
+              {(product.fabric || product.occasion || product.fit || product.season) && (
                 <div className="flex flex-wrap gap-2 mb-6">
                   {product.fabric && (
                     <span className="px-3 py-1 border border-border text-[10px] font-body tracking-wider text-muted-foreground">{product.fabric}</span>
@@ -258,19 +258,25 @@ const ProductDetail = () => {
                   </button>
                 </div>
                 <div className="flex gap-2 flex-wrap">
-                  {product.sizes.map((size) => (
-                    <button
-                      key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`min-w-[48px] h-12 px-3 border text-xs font-body tracking-wider uppercase transition-colors duration-300 ${
-                        selectedSize === size
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  ))}
+                  {(product.sizes.length > 0 ? product.sizes : ["S", "M", "L", "XL", "XXL"]).map((size) => {
+                    const unavailable = product.sizes.length === 0;
+                    return (
+                      <button
+                        key={size}
+                        disabled={unavailable}
+                        onClick={() => !unavailable && setSelectedSize(size)}
+                        className={`min-w-[48px] h-12 px-3 border text-xs font-body tracking-wider uppercase transition-colors duration-300 ${
+                          unavailable
+                            ? "border-border text-muted-foreground/50 line-through cursor-not-allowed"
+                            : selectedSize === size
+                              ? "border-primary bg-primary text-primary-foreground"
+                              : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {size}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
@@ -278,19 +284,25 @@ const ProductDetail = () => {
               <div className="mb-8">
                 <p className="text-xs font-body tracking-[0.15em] uppercase text-foreground mb-3">Color</p>
                 <div className="flex gap-3 flex-wrap">
-                  {product.colors.map((color) => (
-                    <button
-                      key={color}
-                      onClick={() => setSelectedColor(color)}
-                      className={`px-4 py-2 border text-xs font-body tracking-wider transition-colors duration-300 ${
-                        selectedColor === color
-                          ? "border-primary text-primary"
-                          : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {color}
-                    </button>
-                  ))}
+                  {(product.colors.length > 0 ? product.colors : ["Charcoal", "Ivory", "Navy"]).map((color) => {
+                    const unavailable = product.colors.length === 0;
+                    return (
+                      <button
+                        key={color}
+                        disabled={unavailable}
+                        onClick={() => !unavailable && setSelectedColor(color)}
+                        className={`px-4 py-2 border text-xs font-body tracking-wider transition-colors duration-300 ${
+                          unavailable
+                            ? "border-border text-muted-foreground/50 line-through cursor-not-allowed"
+                            : selectedColor === color
+                              ? "border-primary text-primary"
+                              : "border-border text-muted-foreground hover:border-foreground hover:text-foreground"
+                        }`}
+                      >
+                        {color}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 

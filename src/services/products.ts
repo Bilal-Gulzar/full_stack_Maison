@@ -26,7 +26,7 @@ const PROJECTION = `{
   "images": images[].asset->url,
   description,
   category,
-  subcategory,
+  "subcategory": category->subcategory,
   stock,
   featured,
   isNew,
