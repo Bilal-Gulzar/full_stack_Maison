@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-const PHONE = "923172078997"; // +92 317 2078997
+const PHONE = "923430209163"; // +92 343 0209163
 const MESSAGE = "Hi Maison! I'd like to know more about your collection.";
 
 const WhatsAppButton = () => {

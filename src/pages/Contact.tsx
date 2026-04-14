@@ -112,7 +112,7 @@ const Contact = () => {
               <div className="space-y-4">
                 {[
                   { icon: MapPin, label: "Korangi, near Zaman Town, Karachi, Pakistan" },
-                  { icon: Phone, label: "+92 317 2078997" },
+                  { icon: Phone, label: "+92 343 0209163" },
                   { icon: Mail, label: "Maisonclothing0@gmail.com" },
                 ].map(({ icon: Icon, label }) => (
                   <div key={label} className="flex items-center gap-3">
