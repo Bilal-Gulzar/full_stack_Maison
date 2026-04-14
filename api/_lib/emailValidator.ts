@@ -156,12 +156,6 @@ export async function validateEmail(raw: string): Promise<ValidationResult> {
     if (deliv?.is_format_valid === false) return store({ ok: false, reason: "Invalid email format" });
     if (quality?.is_disposable === true) return store({ ok: false, reason: "Disposable email addresses are not allowed" });
     if (deliv?.is_mx_valid === false) return store({ ok: false, reason: "This email domain cannot receive messages" });
-    if (deliv?.is_smtp_valid === false) return store({ ok: false, reason: "This email address does not exist" });
-    if (deliv?.status === "undeliverable") return store({ ok: false, reason: "This email address does not exist" });
-    if (quality?.is_username_suspicious === true) return store({ ok: false, reason: "This email address looks invalid" });
-    if (risk?.address_risk_status === "high") return store({ ok: false, reason: "This email address is flagged as high risk" });
-    if (typeof quality?.score === "number" && quality.score < 0.5) return store({ ok: false, reason: "This email address failed quality checks" });
-    if (deliv?.status !== "deliverable") return store({ ok: false, reason: "This email address could not be verified" });
 
     return store({ ok: true });
   } catch (e) {
