@@ -10,7 +10,12 @@ import { usePageMeta } from "@/hooks/usePageMeta";
 const FORMAT_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const Contact = () => {
-  usePageMeta({ title: "Contact", description: "Get in touch with MAISON — visit our Karachi store, call, or send us a message." });
+  usePageMeta({
+    title: "Contact MAISON — Visit Our Karachi Store",
+    description:
+      "Contact MAISON Pakistan — visit our Karachi store, call us, WhatsApp, or send a message. Customer support for orders, sizing, and custom tailoring inquiries.",
+    keywords: "MAISON contact, MAISON Karachi store, menswear store Pakistan, custom tailoring Karachi, contact luxury menswear Pakistan, MAISON WhatsApp",
+  });
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [submitting, setSubmitting] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);

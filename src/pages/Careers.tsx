@@ -41,7 +41,12 @@ const JobCard = ({ title, location, type, description }: { title: string; locati
 };
 
 const Careers = () => {
-  usePageMeta({ title: "Careers", description: "Open roles at MAISON — join the team behind modern luxury menswear." });
+  usePageMeta({
+    title: "Careers at MAISON — Jobs in Fashion & Menswear Pakistan",
+    description:
+      "Open roles at MAISON Pakistan — join the team behind modern luxury menswear. Explore careers in design, tailoring, retail, marketing, and e-commerce.",
+    keywords: "MAISON careers, fashion jobs Pakistan, menswear jobs, retail jobs Karachi, tailoring jobs Pakistan, fashion brand careers",
+  });
   const { data } = useSiteSettings();
   const openings = data?.careersOpenings?.length ? data.careersOpenings : FALLBACK_OPENINGS;
 

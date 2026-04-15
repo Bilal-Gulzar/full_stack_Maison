@@ -32,7 +32,12 @@ const FeaturedSkeleton = () => (
 );
 
 const Articles = () => {
-  usePageMeta({ title: "Journal", description: "Style notes, craft stories, and editorials from MAISON's journal." });
+  usePageMeta({
+    title: "Men's Style Journal — Fashion Guides & Editorials",
+    description:
+      "Style notes, fashion guides, and craft stories from MAISON's journal. Read about men's fashion trends, tailoring tips, fabric guides, and wedding style inspiration in Pakistan.",
+    keywords: "mens style journal Pakistan, mens fashion blog, menswear guide, tailoring tips, fabric guide, wedding style men, fashion editorials Pakistan",
+  });
   const { articles, loading } = useArticles();
 
   return (

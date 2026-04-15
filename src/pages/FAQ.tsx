@@ -32,7 +32,12 @@ const FAQItem = ({ q, a }: { q: string; a: string }) => {
 };
 
 const FAQ = () => {
-  usePageMeta({ title: "FAQ", description: "Answers to common questions about MAISON sizing, shipping, returns, and orders." });
+  usePageMeta({
+    title: "FAQ — Sizing, Shipping, Returns & Orders",
+    description:
+      "Frequently asked questions about MAISON — sizing guide, shipping across Pakistan, returns, exchanges, COD payments, and order tracking.",
+    keywords: "MAISON FAQ, mens clothing sizing Pakistan, shipping Pakistan menswear, COD menswear Pakistan, return policy menswear, order tracking",
+  });
   const { data } = useSiteSettings();
   const faqs = data?.faqs?.length ? data.faqs : FALLBACK_FAQS;
 

@@ -11,12 +11,15 @@ export interface PageMeta {
   image?: string;
   /** Optional canonical URL override */
   url?: string;
+  /** Optional per-page keywords (comma-separated) */
+  keywords?: string;
 }
 
 const SITE_NAME = "MAISON";
 const TITLE_SUFFIX = " | MAISON";
+const DEFAULT_TITLE = "MAISON — Luxury Menswear in Pakistan | Kurtas, Suits, Sherwani";
 const DEFAULT_DESCRIPTION =
-  "MAISON — curated luxury menswear. Tailored suits, casual essentials, and premium accessories for the modern gentleman.";
+  "Shop MAISON — Pakistan's premier luxury menswear brand. Designer kurtas, tailored suits, sherwanis, and western formals. Eastern & western wear with nationwide COD delivery.";
 const DEFAULT_IMAGE = "/maison-logo-dark.svg";
 
 function setMeta(selector: string, attr: "name" | "property", key: string, content: string) {
@@ -29,17 +32,18 @@ function setMeta(selector: string, attr: "name" | "property", key: string, conte
   el.setAttribute("content", content);
 }
 
-export function usePageMeta({ title, description, image, url }: PageMeta) {
+export function usePageMeta({ title, description, image, url, keywords }: PageMeta) {
   useEffect(() => {
     const previousTitle = document.title;
 
-    const fullTitle = title ? `${title}${TITLE_SUFFIX}` : `${SITE_NAME} — Modern Men's Clothing | Luxury Menswear`;
+    const fullTitle = title ? `${title}${TITLE_SUFFIX}` : DEFAULT_TITLE;
     const desc = description || DEFAULT_DESCRIPTION;
     const img = image || DEFAULT_IMAGE;
     const canonical = url || (typeof window !== "undefined" ? window.location.href : "");
 
     document.title = fullTitle;
     setMeta('meta[name="description"]', "name", "description", desc);
+    if (keywords) setMeta('meta[name="keywords"]', "name", "keywords", keywords);
 
     setMeta('meta[property="og:title"]', "property", "og:title", fullTitle);
     setMeta('meta[property="og:description"]', "property", "og:description", desc);

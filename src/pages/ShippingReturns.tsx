@@ -37,7 +37,12 @@ const ToggleSection = ({ title, content }: { title: string; content: string }) =
 };
 
 const ShippingReturns = () => {
-  usePageMeta({ title: "Shipping & Returns", description: "MAISON shipping options, return policy, and care information." });
+  usePageMeta({
+    title: "Shipping & Returns — Nationwide Delivery in Pakistan",
+    description:
+      "MAISON shipping across Pakistan — standard PKR 250, free over PKR 5,000. 3–7 day delivery, COD accepted, easy returns and exchanges. Garment care guide included.",
+    keywords: "shipping Pakistan, COD delivery Pakistan, mens clothing returns, free shipping menswear Pakistan, nationwide delivery Lahore Karachi Islamabad, MAISON shipping policy",
+  });
   const { data } = useSiteSettings();
   const shippingPolicies = data?.shippingPolicies?.length ? data.shippingPolicies : FALLBACK_SHIPPING;
   const returnPolicies = data?.returnPolicies?.length ? data.returnPolicies : FALLBACK_RETURNS;

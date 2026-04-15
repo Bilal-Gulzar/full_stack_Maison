@@ -59,7 +59,13 @@ const ProductSkeleton = ({ layout }: { layout: GridLayout }) => {
 };
 
 const Shop = () => {
-  usePageMeta({ title: "Shop", description: "Browse MAISON's full menswear collection — suits, casual essentials, and accessories." });
+  usePageMeta({
+    title: "Shop Men's Clothing Online — Kurtas, Suits, Sherwani",
+    description:
+      "Shop the MAISON collection — designer kurtas, shalwar kameez, sherwanis, tailored suits, waistcoats, and western formals. Filter by fabric, fit, season, and occasion. Nationwide delivery in Pakistan.",
+    keywords:
+      "shop mens clothing Pakistan, online kurta shop, buy sherwani online, designer kurta online, mens suit Pakistan, tailored suit online, waistcoat online, shalwar kameez online, mens formal wear, MAISON shop, luxury menswear store Pakistan",
+  });
   const { products, loading: productsLoading } = useProducts();
   const [searchParams] = useSearchParams();
   const [activeCategory, setActiveCategory] = useState("All");

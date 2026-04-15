@@ -12,7 +12,11 @@ const ArticleDetail = () => {
   const { article, loading } = useArticleBySlug(slug);
   usePageMeta({
     title: article?.title || "Journal",
+    description: article?.description || "Read the latest men's fashion and style article from MAISON's journal — style guides, fabric tips, and editorials for the modern gentleman in Pakistan.",
     image: article?.coverImage,
+    keywords: article?.title
+      ? `${article.title}, mens fashion Pakistan, menswear style guide, MAISON journal, ${article.title.toLowerCase().split(" ").slice(0, 3).join(", ")}`
+      : "mens fashion article Pakistan, menswear journal, style guide",
   });
 
   if (loading) {

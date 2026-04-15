@@ -18,7 +18,12 @@ const FALLBACK_VALUES = [
 ];
 
 const About = () => {
-  usePageMeta({ title: "About", description: "Learn the story behind MAISON — our craft, our values, and our vision for modern menswear." });
+  usePageMeta({
+    title: "About MAISON — Pakistan's Luxury Menswear Brand",
+    description:
+      "The story behind MAISON — Pakistan's luxury menswear brand blending traditional eastern craftsmanship with modern western tailoring. Learn our vision, values, and heritage.",
+    keywords: "about MAISON, MAISON brand Pakistan, luxury menswear brand Pakistan, Pakistani menswear designer, mens fashion brand Pakistan, eastern tailoring, western tailoring",
+  });
   const { data } = useSiteSettings();
   const story = data?.aboutStory?.length ? data.aboutStory : FALLBACK_STORY;
   const values = data?.aboutValues?.length ? data.aboutValues : FALLBACK_VALUES;

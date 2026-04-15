@@ -18,11 +18,14 @@ const ProductDetail = () => {
   const { products, loading } = useProducts();
   const product = products.find((p) => p.id === id || p.slug === id);
   usePageMeta({
-    title: product ? product.name : "Product",
+    title: product ? `${product.name} — Buy Online in Pakistan` : "Product",
     description: product
-      ? `${product.name} — ${product.description?.slice(0, 150) || "Discover this piece from MAISON's curated menswear collection."}`
+      ? `${product.name} — ${product.description?.slice(0, 140) || `Premium ${product.category || "menswear"} from MAISON. Designer fit, premium fabric, nationwide COD delivery in Pakistan.`}`
       : undefined,
     image: product?.images?.[0],
+    keywords: product
+      ? `${product.name}, ${product.category || "menswear"}, ${product.fabric || ""}, ${product.occasion || ""}, buy ${product.name} Pakistan, MAISON ${product.name}, designer ${product.category || "menswear"}, mens clothing Pakistan`
+      : undefined,
   });
   const { addItem } = useCart();
   const { toggleItem, isInWishlist } = useWishlist();

@@ -30,7 +30,12 @@ const ToggleSection = ({ title, content }: { title: string; content: string }) =
 };
 
 const Sustainability = () => {
-  usePageMeta({ title: "Sustainability", description: "MAISON's commitment to ethical sourcing, responsible craftsmanship, and a lower-impact supply chain." });
+  usePageMeta({
+    title: "Sustainability — Ethical Luxury Menswear Pakistan",
+    description:
+      "MAISON's commitment to sustainable luxury menswear — ethical sourcing, responsible craftsmanship, and a lower-impact supply chain. Learn how we make conscious fashion in Pakistan.",
+    keywords: "sustainable menswear Pakistan, ethical fashion Pakistan, eco-friendly clothing, responsible menswear, slow fashion Pakistan, MAISON sustainability",
+  });
   const { data } = useSiteSettings();
   const sections = data?.sustainabilitySections?.length ? data.sustainabilitySections : FALLBACK_SECTIONS;
 
